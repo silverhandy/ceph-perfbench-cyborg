@@ -23,6 +23,7 @@ class ExecutionManager(object):
     def __init__(self, config_manager):
         self.cm = config_manager
         self.exec_objs = []
+        self.clusters = []
         self.benchmarks = []
         self.parallels = []
         self.state = ExecState.Init
@@ -51,34 +52,40 @@ class ExecutionManager(object):
     #   Benchmarks run in one by one
     #   Tools run in parallel
     def run(self):
-        CBCLogger.debug("Executor start to run.")
+        CBCLogger.info("Executor start to run.")
         for i in self.exec_objs:
             #CBCLogger.debug("Iterate execute obj:"+i.__class__.__name__+",parent obj:"+i.__class__.__bases__[0].__name__)
-            if i.__class__.__bases__[0].__name__ == 'BenchmarkExecutor':
-                #mrunner = BenchThread(i)
-                #mrunner.start()
+            if i.__class__.__bases__[0].__name__ == 'ClusterExecutor':
+                CBCLogger.debug("add ClusterExecutor instance")
+                self.clusters.append(i)
+            elif i.__class__.__bases__[0].__name__ == 'BenchmarkExecutor':
+                CBCLogger.debug("add BenchmarkExecutor instance")
                 self.benchmarks.append(i)
             elif i.__class__.__bases__[0].__name__ == 'ToolExecutor':
-                #i.run()
+                CBCLogger.debug("add ToolExecutor instance")
                 self.parallels.append(i)
         
-        mrunner = MainThread(self.benchmarks, self.parallels)
+        mrunner = MainThread(self.clusters, self.benchmarks, self.parallels)
         mrunner.start()
         self.state = ExecState.Running
         mrunner.join()
         self.state = ExecState.Completed
 
 class MainThread(threading.Thread):
-    def __init__(self, benchmarks, parallels):
+    def __init__(self, clusters, benchmarks, parallels):
         threading.Thread.__init__(self)
+        self.clusters = clusters
         self.benchmarks = benchmarks
         self.parallels = parallels
     
     def run(self):
-        CBCLogger.debug("Run Benchmark in another thread.")
-        for i in self.benchmarks:
-            for j in self.parallels:
-                j.run()
+        CBCLogger.info("Run Benchmark in another thread.")
+        for i in self.clusters:
             i.run()
-        CBCLogger.debug("Run Benchmarks Done.")
+            time.sleep(1)
+            for j in self.benchmarks:
+                for k in self.parallels:
+                    k.run()
+                j.run()
+        CBCLogger.info("Run Benchmarks Done.")
         

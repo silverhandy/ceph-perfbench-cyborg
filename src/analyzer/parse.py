@@ -10,14 +10,14 @@ class DataParser(Analyzer):
         pass
 
     def build(self):
-        CBCLogger.debug("Build Parser source code.")
+        CBCLogger.info("Build Parser source code.")
 
     def setup(self):
-        CBCLogger.debug("Setup Parser.")
+        CBCLogger.info("Setup Parser.")
 
     def run(self):
-        CBCLogger.debug("Run Parser.")
+        CBCLogger.info("Run Parser.")
     
     def check_bottleneck(self):
-        CBCLogger.debug("Check bottleneck is in Ceph.")
+        CBCLogger.info("Check bottleneck is in Ceph.")
         return True

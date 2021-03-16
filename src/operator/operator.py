@@ -19,5 +19,10 @@ class Operator(object):
 
 
 if __name__ == "__main__":
+    toolpath = os.path.abspath(os.path.join(os.getcwd(), "../../tool"))
+    #print("ToolPath is:"+toolpath)
+    #sys.path.append(toolpath)
+    os.environ['PATH'] += ':'+toolpath
+
     op = Operator()
     op.run()

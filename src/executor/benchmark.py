@@ -16,12 +16,12 @@ class FioExecutor(BenchmarkExecutor):
         self.config_obj = config_obj
 
     def build(self):
-        CBCLogger.debug("Build Fio source code.")
+        CBCLogger.info("Build Fio source code.")
     
     def setup(self):
-        CBCLogger.debug("Setup Fio.")
+        CBCLogger.info("Setup Fio.")
     
     def run(self):
-        CBCLogger.debug("Run Fio Start.")
+        CBCLogger.info("Run Fio Start.")
         time.sleep(10)
-        CBCLogger.debug("Run Fio End.")
+        CBCLogger.info("Run Fio End.")

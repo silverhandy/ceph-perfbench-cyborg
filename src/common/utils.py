@@ -4,6 +4,13 @@ from logging.handlers import TimedRotatingFileHandler
 FORMATTER = logging.Formatter("%(asctime)s — %(name)s — %(levelname)s — %(message)s")
 LOG_FILE = "cbc.log"
 
+from enum import Enum
+
+class RetCode(Enum):
+    OK = 0
+    Error = 1
+
+
 class CBCLogger(object):
     logger = None
 
@@ -37,3 +44,21 @@ class CBCLogger(object):
         if cls.logger is None:
             cls.logger = cls.get_logger("CBC")
         cls.logger.debug(log_message)
+
+    @classmethod
+    def info(cls, log_message):
+        if cls.logger is None:
+            cls.logger = cls.get_logger("CBC")
+        cls.logger.info(log_message)
+
+    @classmethod
+    def warning(cls, log_message):
+        if cls.logger is None:
+            cls.logger = cls.get_logger("CBC")
+        cls.logger.warning(log_message)
+
+    @classmethod
+    def error(cls, log_message):
+        if cls.logger is None:
+            cls.logger = cls.get_logger("CBC")
+        cls.logger.error(log_message)

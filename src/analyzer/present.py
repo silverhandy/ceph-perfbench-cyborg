@@ -9,10 +9,10 @@ class DataPresenter(Analyzer):
         pass
 
     def build(self):
-        CBCLogger.debug("Build Presenter source code.")
+        CBCLogger.info("Build Presenter source code.")
 
     def setup(self):
-        CBCLogger.debug("Setup Presenter.")
+        CBCLogger.info("Setup Presenter.")
 
     def run(self):
-        CBCLogger.debug("Run Presenter.")
+        CBCLogger.info("Run Presenter.")

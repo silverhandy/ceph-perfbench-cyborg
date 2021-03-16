@@ -18,10 +18,10 @@ class DstatExecutor(ToolExecutor):
         self.runner = DstatThread()
 
     def build(self):
-        CBCLogger.debug("Build Dstat source code.")
+        CBCLogger.info("Build Dstat source code.")
     
     def setup(self):
-        CBCLogger.debug("Setup Dstat.")
+        CBCLogger.info("Setup Dstat.")
     
     def run(self):
         self.runner.start()
@@ -32,7 +32,7 @@ class DstatThread(threading.Thread):
         threading.Thread.__init__(self)
     
     def run(self):
-        CBCLogger.debug("Run Dstat in another thread.")
-        CBCLogger.debug("Run Dstat Start.")
+        CBCLogger.info("Run Dstat in another thread.")
+        CBCLogger.info("Run Dstat Start.")
         time.sleep(10)
-        CBCLogger.debug("Run Dstat End.")
+        CBCLogger.info("Run Dstat End.")
